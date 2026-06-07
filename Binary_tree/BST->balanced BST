@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+    void getinorder(TreeNode* root, vector<int>& nodes) {
+        if (root == NULL) {
+            return;
+        }
+
+        getinorder(root->left, nodes);
+        nodes.push_back(root->val);
+        getinorder(root->right, nodes);
+    }
+
+    TreeNode* buildBSTfromsorted(vector<int>& nodes, int st, int end) {
+        if (st > end) {
+            return NULL;
+        }
+
+        int mid = st + (end - st) / 2;
+
+        TreeNode* root = new TreeNode(nodes[mid]);
+
+        root->left = buildBSTfromsorted(nodes, st, mid - 1);
+        root->right = buildBSTfromsorted(nodes, mid + 1, end);
+
+        return root;
+    }
+
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int> nodes;
+
+        getinorder(root, nodes);
+
+        return buildBSTfromsorted(nodes, 0, nodes.size() - 1);
+    }
+
+
+
+
+
+
+
+
+............................GOOD QUESTION......................
+};
