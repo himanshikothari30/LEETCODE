@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+
+        int n = nums.size();
+
+        k = k % n;
+
+        vector<int> temp(k);
+
+        // Step 1: Last k elements temp me store karo
+        for (int i = 0; i < k; i++) {
+            temp[i] = nums[n - k + i];
+        }
+
+        // Step 2: Baaki elements ko right shift karo
+        for (int i = n - k - 1; i >= 0; i--) {
+            nums[i + k] = nums[i];
+        }
+
+        // Step 3: Temp ke elements starting me daal do
+        for (int i = 0; i < k; i++) {
+            nums[i] = temp[i];
+        }
+    }
+};
