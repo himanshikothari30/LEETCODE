@@ -1,0 +1,19 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) { //always check that linked list was not null
+        ListNode* i = head;
+
+        while (i != NULL && i->next != NULL) {
+            ListNode* j = i->next;
+
+            if (i->val == j->val) {
+                i->next = j->next;
+            }
+            else {
+                i = i->next;
+            }
+        }
+
+        return head;
+    }
+};
