@@ -1,0 +1,70 @@
+class Solution {
+public:
+
+    ListNode* reverseList(ListNode* head) {
+
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+
+        while (curr != NULL) {
+
+            ListNode* next = curr->next;
+
+            curr->next = prev;
+
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+
+    bool isPalindrome(ListNode* head) {
+
+        // 1. Count total nodes
+        int n = 0;
+        ListNode* temp = head;
+
+        while (temp != NULL) {
+            n++;
+            temp = temp->next;
+        }
+
+
+        // 2. Find middle
+        int mid = n / 2;
+
+        temp = head;
+
+        for (int i = 0; i < mid; i++) {
+            temp = temp->next;
+        }
+
+
+        // 3. If odd, skip the middle element
+        if (n % 2 != 0) {
+            temp = temp->next;
+        }
+
+
+        // 4. Reverse second half
+        ListNode* second = reverseList(temp);
+
+
+        // 5. Compare first half and reversed second half
+        ListNode* first = head;
+
+        while (second != NULL) {
+
+            if (first->val != second->val) {
+                return false;
+            }
+
+            first = first->next;
+            second = second->next;
+        }
+
+        return true;
+    }
+};
