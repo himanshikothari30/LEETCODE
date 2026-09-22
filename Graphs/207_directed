@@ -1,0 +1,55 @@
+class Solution {
+public:
+
+    bool dfs(int node, vector<vector<int>>& graph,
+             vector<bool>& vis, vector<bool>& pathVis) {
+
+        vis[node] = true;
+        pathVis[node] = true;
+
+        for (int neighbor : graph[node]) {
+
+            if (!vis[neighbor]) {
+
+                if (dfs(neighbor, graph, vis, pathVis))
+                    return true;
+            }
+
+            else if (pathVis[neighbor]) {
+                return true;
+            }
+        }
+
+        pathVis[node] = false;
+
+        return false;
+    }
+
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+
+        vector<vector<int>> graph(numCourses);
+
+        for (auto &edge : prerequisites) {   //prerequisites means here edge list in this question input is in form of edge list / prerequisites that's why we use this 
+
+            int u = edge[0];
+            int v = edge[1];
+
+            graph[v].push_back(u);
+        }
+
+        vector<bool> vis(numCourses, false);
+        vector<bool> pathVis(numCourses, false);
+
+        for (int i = 0; i < numCourses; i++) {
+
+            if (!vis[i]) {
+
+                if (dfs(i, graph, vis, pathVis))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+};
